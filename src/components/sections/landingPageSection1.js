@@ -16,7 +16,8 @@ constructor(props) {
 //when smart contract code changes update the state of the parent
 	handleChangesToContract=(event)=>{
 		this.props.removeErrorMessage(); 
-		this.props.storeContractCodeToState(event.target.value);
+		this.props.
+		storeContractCodeToState(event.target.value);
 		this.setState({
 			contract:event.target.value
 		});
