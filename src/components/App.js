@@ -299,7 +299,7 @@ console.log(this.state.suggestions);
 								    <Modal.Content image>
 								      <Modal.Description>
 
-											<form name="contact" method="POST" data-netlify="true">
+											<form name="contact" data-netlify="true">
 												  <p>
 												    <label>Your Name: <input type="text" name="name" /></label>   
 												  </p>
