@@ -215,7 +215,8 @@ class landingPage extends React.Component{
 		  	})  
 	}
 
-	saveUserSuggestionToState=()=>{
+	saveUserSuggestionToState=(evt)=>{
+		evt.preventDefault()
 		let userSuggestion ={}
 		userSuggestion.name = this.state.userName;
 		userSuggestion.contactInfo = this.state.userContactInfo;
@@ -306,7 +307,7 @@ console.log(this.state.suggestions);
 								        <TextArea name="suggestions" onChange={this.userSuggestionToState} value={this.state.userSuggestion} style ={{width:'850px',height:'100px'}} placeholder="Please enter your message here..."/>
 								      	<br/>
 								      	<br/>
-								      	<Button floated='right' secondary type="submit">Submit</Button>
+								      	<Button floated='right' secondary onClick={this.saveUserSuggestionToState} type="submit">Submit</Button>
 								        </Form>
 								        <h4 style={{color:'gray'}}>ETH Address: 0x001FabDCb503f618ceE9d79D949301EEBC170647</h4>
 								      </Modal.Description>
