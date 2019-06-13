@@ -298,23 +298,16 @@ console.log(this.state.suggestions);
 								    </Modal.Header>
 								    <Modal.Content image>
 								      <Modal.Description>
-
-											<form name="contact" data-netlify="true">
-												  <p>
-												    <label>Your Name: <input type="text" name="name" /></label>   
-												  </p>
-												  <p>
-												    <label>Your Email: <input type="email" name="email" /></label>
-												  </p>
-				
-												  <p>
-												    <label>Message: <textarea name="message"></textarea></label>
-												  </p>
-												  <p>
-												    <button type="submit">Send</button>
-												  </p>
-												</form>
-
+								        <Form name="contact" netlify data-netlify="true">
+								        <Input name="First Name"onChange={this.userNameToState} value={this.state.userName} label='Name(optional)' placeholder='John Doe.....' />
+								        <Input name="email" onChange={this.userContactInfoToState} value={this.state.userContactInfo} label='Contact Information' placeholder='Email, Telegram,Git..etc' />
+								        <br/>
+								        <br/>
+								        <TextArea name="suggestions" onChange={this.userSuggestionToState} value={this.state.userSuggestion} style ={{width:'850px',height:'100px'}} placeholder="Please enter your message here..."/>
+								      	<br/>
+								      	<br/>
+								      	<Button floated='right' secondary type="submit">Submit</Button>
+								        </Form>
 								        <h4 style={{color:'gray'}}>ETH Address: 0x001FabDCb503f618ceE9d79D949301EEBC170647</h4>
 								      </Modal.Description>
 								    </Modal.Content>
