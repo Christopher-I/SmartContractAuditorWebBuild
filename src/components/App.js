@@ -143,10 +143,12 @@ class landingPage extends React.Component{
 		});
 
 		//Load a chosen compiler version
-		window.BrowserSolc.loadVersion(this.state.currentCompiler, function(compiler){
+		window.BrowserSolc.loadVersion(this.state.currentCompiler, async function (compiler){
 		
 		  let optimize = 1;
 		  let result = compiler.compile(source, optimize);
+
+		  //console.log(web3.eth.estimateGas({data: bytecode}));
 		  // console.log(result);
 		  // console.log(result.sources[""]);
 		  //console.log(result.contracts);
@@ -296,7 +298,7 @@ console.log(this.state.suggestions);
 								    </Modal.Header>
 								    <Modal.Content image>
 								      <Modal.Description>
-								        <Form>
+								        <Form name="contact" method="POST" data-netlify="true">
 								        <Input onChange={this.userNameToState} value={this.state.userName} label='Name(optional)' placeholder='John Doe.....' />
 								        <Input onChange={this.userContactInfoToState} value={this.state.userContactInfo} label='Contact Information' placeholder='Email, Telegram,Git..etc' />
 								        <br/>

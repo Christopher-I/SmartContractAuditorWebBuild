@@ -56,7 +56,9 @@ constructor(props) {
 	return (
 		<Segment style = {{height:'850px',overflow: 'scroll'}}>
 			<h1> QUIKK Smart Contract Auditor</h1> 
-			 <p style ={{color:'grey'}}> minimal, fast, open-source smart contract auditor for ethereum</p>
+			 <p style ={{color:'grey'}}> Auditor is still in test phase and will be improved over time
+			  visit https://github.com/Christopher-I/SmartContractAuditor
+			 </p>
 			 <Form error= {!!this.props.errorMessage} success={!!this.props.successMessage}>
 			<Progress percent={this.props.percent} autoSuccess />
 			<Message error content = {this.props.errorMessage}/>
