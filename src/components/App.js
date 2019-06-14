@@ -4,6 +4,7 @@ import Auditor from '../auditor/Auditor';
 import LandingPageSection1 from './sections/landingPageSection1';
 import LandingPageSection2 from './sections/landingPageSection2';
 import sampleContract from '../sampleContract/sampleContract';
+import Web3 from 'web3';
 
 
 class landingPage extends React.Component{
@@ -147,8 +148,16 @@ class landingPage extends React.Component{
 		
 		  let optimize = 1;
 		  let result = compiler.compile(source, optimize);
+		  
+		    const provider = new Web3.providers.HttpProvider(
+    'https://rinkeby.infura.io/v3/c3085f6dbf9347358b5ab5d30de1fdbe'
+  )
+		   const web3 = new Web3(provider);
+		   //console.log(result.contracts[":SampleContract"].bytecode)
+		   let bytecode = result.contracts[":SampleContract"].bytecode;
 
-		  //console.log(web3.eth.estimateGas({data: bytecode}));
+		   
+		  //console.log(await web3.eth.estimateGas({data: data1 }));
 		  // console.log(result);
 		  // console.log(result.sources[""]);
 		  //console.log(result.contracts);
@@ -189,10 +198,14 @@ class landingPage extends React.Component{
 		  		noOfLines:dataArrayLength,
 		  		// creationCost:result.contracts[":Migrations"].gasEstimates.creation[0],
 		  		// executionCost:result.contracts[":Migrations"].gasEstimates.creation[1],
-		  		// gasEstimate : totalGasCost,
+		  		gasEstimate : await web3.eth.estimateGas({
+				    to: "0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe",
+				    data: "0x" + bytecode
+				}),
 		  		percent: 50,
 		  		successMessage:"Audit Complete!"
 		  	})
+		  	console.log("gas estinate is " + self.state.gasEstimate)
 		  	//send contract code to auditor and await feed back of array of warnings
 		  	let warnings = self.auditCode(dataArray);
 
