@@ -3,17 +3,12 @@
 export default(dataArray)=>{
 
         //let dataArray = contractCode.split("\n");
-        let actionLines = new Array();
+        let actionLines = [];
         let warn={key:"Fiat", warn:"500"};
         let warnings=[];
-        let  searchFunction= 'function'; // we are looking for a line, contains, key word 'user1' in the file
+        let searchFunction= 'function'; // we are looking for a line, contains, key word 'user1' in the file
         let searchExternalCall = '.call()';
         let dangerousCalls1 = '.call.value()';
-        let searchCurlyBrace = '()';
-        let lastIndex = -1; // let say, we have not found the keyword
-        let key;
-
-        let laws = 0;
         let EIPE20Check = 0;
 
 

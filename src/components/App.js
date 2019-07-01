@@ -73,7 +73,7 @@ class landingPage extends React.Component{
 		gasEstimate:'',
 		timeOfAudit:'',
 		fileSize: '',
-		loading:'',
+		loading:false,
 		vunerabiltiesFound: '',
 		noOfLines: '',
 		percent:'',
@@ -88,13 +88,13 @@ class landingPage extends React.Component{
 
 		 //update loading bar
       	this.setState({
-		  		percent: '75',
+		  		//percent: '75',
 		  		warningsList:warnings.length
 		  	})
-
+    let rndm = 0;
 	let list = warnings.map(warnings => {        
             return (
-                <List.Item>
+                <List.Item key={rndm++}>
                           <List.Content>
                             <List.Header as='a'>line {warnings.key}</List.Header>
                             <List.Description as='a'>{warnings.value}</List.Description>
@@ -137,6 +137,7 @@ class landingPage extends React.Component{
 		//split code into array based on each new line
         let dataArray = source.split("\n");
         let dataArrayLength = dataArray.length;
+        console.log("data array is " + dataArrayLength);
 
         //update loading bar
         self.setState({
@@ -168,15 +169,15 @@ class landingPage extends React.Component{
 		  	})
 
 		  }else {
+		//   	//check for warnings in compilation
+		//   	if(result.errors){
+		  	
 
-		  	if(result.errors){
-		  	//check for warnings in compilation
-
-		  //save all warning and errors to state
-		  self.setState({
-		  		errorMessage: result.errors[0]
-		  	})
-		}
+		//   //save all warning and errors to state
+		//   self.setState({
+		//   		errorMessage: result.errors[0]
+		//   	})
+		// }
 		  
 		   const provider = new Web3.providers.HttpProvider(
 		    'https://rinkeby.infura.io/v3/c3085f6dbf9347358b5ab5d30de1fdbe'
@@ -206,9 +207,13 @@ class landingPage extends React.Component{
 		  	})
 
 
-		  	console.log("gas estimate is " + self.state.gasEstimate)
+		  	//console.log("gas estimate is " + self.state.gasEstimate)
 		  	//send contract code to auditor and await feed back of array of warnings
 		  	let warnings = self.auditCode(dataArray);
+		  	self.setState({
+		  		percent: 75,
+		  	})
+
 
 		  	//send array of warnings to renderList function to create organized JSX and update state
 		  	self.renderWarningList(warnings);
@@ -276,9 +281,9 @@ console.log(this.state.suggestions);
 
 			<Container style={{width:'1300px', marginTop:'10px'}}>
 				<Grid>
-				    <Grid.Row>
+				    <Grid.Row key ={"gridRow1"}>
 
-					      <Grid.Column width={11}>
+					      <Grid.Column width={11} key ={"gridColumn1"}>
 					      <LandingPageSection1
 					      contractCode={this.state.contractCode}
 					      removeErrorMessage = {this.removeErrorMessage}
@@ -291,7 +296,7 @@ console.log(this.state.suggestions);
 					      </Grid.Column>
 
 
-					      <Grid.Column width={4}>
+					      <Grid.Column width={4} key ={"gridColumn2"}>
 					      <LandingPageSection2 
 					      warningsList = {this.state.warningsList}
 					      renderedList = {this.state.renderedList}
@@ -305,8 +310,8 @@ console.log(this.state.suggestions);
 					      />
 					      </Grid.Column>
 
-					      <Grid.Column width={1}>
-					              <Modal open={this.state.modalOpen} onClose={this.handleClose} trigger={<Button onClick={this.handleOpen} style={{marginTop:'775px'}} basic circular icon='comment alternate outline' size='huge'>Suggestion Box</Button>}>
+					      <Grid.Column width={1} key ={"gridColumn3"}>
+					              <Modal open={this.state.modalOpen} onClose={this.handleClose} trigger={<Button onClick={this.handleOpen} style={{marginTop:'775px'}} basic circular size='huge'>Suggestion Box</Button>}>
 								    <Modal.Header style={{fontSize:'19px',color:'grey'}}>
 								    Thank you for taking the time to leave some feedback, I am a solo enthusiast who created this auditor for fun and to contribute to our beautiful ecosystem,
 								    I appreciate all suggestions, contributions and feedback to help improve this platform.

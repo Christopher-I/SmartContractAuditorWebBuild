@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Card, TextArea, Button,Dropdown,List,Grid} from 'semantic-ui-react';
+import { Segment,Button,Dropdown,List} from 'semantic-ui-react';
 
 
 class landingPageSection2 extends React.Component{
