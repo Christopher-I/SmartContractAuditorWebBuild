@@ -1,5 +1,5 @@
 import React from 'react';
-import {Segment, Form, TextArea, Progress,Message,Table,Grid} from 'semantic-ui-react';
+import {Segment, Form, TextArea, Progress, Message,Table, Grid} from 'semantic-ui-react';
 
 
 class landingPageSection1 extends React.Component{

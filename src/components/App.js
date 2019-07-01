@@ -11,7 +11,7 @@ class landingPage extends React.Component{
 
 	state = {
 		currentCompiler:'',
-		contractCode:sampleContract(),
+		contractCode:'',
 		creationCost:'',
 		executionCost:'',
 		gasEstimate:'',
@@ -29,6 +29,12 @@ class landingPage extends React.Component{
 		userContactInfo:'',
 		userSuggestion:'',
 		modalOpen:false
+	}
+
+	componentDidMount(){
+		this.setState({
+			contractCode:sampleContract()
+		})
 	}
 
 	//get Time of Audit
@@ -53,7 +59,7 @@ class landingPage extends React.Component{
 
 	//receive contract code from child component-landingPageSection2 and store it to state
 	storeContractCodeToState=(contractCode)=>{
-		console.log(contractCode);
+		//console.log(contractCode);
 		this.setState({
 			contractCode: contractCode
 		})
@@ -148,51 +154,44 @@ class landingPage extends React.Component{
 		
 		  let optimize = 1;
 		  let result = compiler.compile(source, optimize);
-		  
-		    const provider = new Web3.providers.HttpProvider(
-    'https://rinkeby.infura.io/v3/c3085f6dbf9347358b5ab5d30de1fdbe'
-  )
-		   const web3 = new Web3(provider);
-		   //console.log(result.contracts[":SampleContract"].bytecode)
-		   let bytecode = result.contracts[":SampleContract"].bytecode;
-
-		   
-		  //console.log(await web3.eth.estimateGas({data: data1 }));
-		  // console.log(result);
-		  // console.log(result.sources[""]);
+		  // result = JSON.stringify(result);
+		  // result = JSON.parse(result);
 		  //console.log(result.contracts);
+		  let contractName = Object.keys(result.contracts)[0];
 
-
-
-
-
-
-		  //check for errrors in compilation
+		  	//check for errrors in compilation
 		  if(result.errors && !result.sources[""]){
 
-		  			  //save all warning and errors to state
+		  //save all warning and errors to state
 		  self.setState({
 		  		errorMessage: result.errors[0]
 		  	})
 
+		  }else {
 
-
-		  }else{
+		  	if(result.errors){
 		  	//check for warnings in compilation
-		  if(result.errors){
 
-		  			  //save all warning and errors to state
+		  //save all warning and errors to state
 		  self.setState({
 		  		errorMessage: result.errors[0]
 		  	})
-		   }
+		}
+		  
+		   const provider = new Web3.providers.HttpProvider(
+		    'https://rinkeby.infura.io/v3/c3085f6dbf9347358b5ab5d30de1fdbe'
+		  )
+		   const web3 = new Web3(provider);
+		   //console.log(result);
 
+		   let bytecode = result.contracts[contractName].bytecode;
 
+		   
 
 		  	//compilation was succesful, auditing and updating general stats begins at this point 
 
 		  	//compute total gas cost which is the estimated creation cost plus the execution cost
-		  //let totalGasCost = result.contracts[":Migrations"].gasEstimates.creation[0]+result.contracts[":Migrations"].gasEstimates.creation[1];
+		 // let totalGasCost = result.contracts[":Migrations"].gasEstimates.creation[0]+result.contracts[":Migrations"].gasEstimates.creation[1];
 
 		  	self.setState({
 		  		noOfLines:dataArrayLength,
@@ -205,14 +204,16 @@ class landingPage extends React.Component{
 		  		percent: 50,
 		  		successMessage:"Audit Complete!"
 		  	})
-		  	console.log("gas estinate is " + self.state.gasEstimate)
+
+
+		  	console.log("gas estimate is " + self.state.gasEstimate)
 		  	//send contract code to auditor and await feed back of array of warnings
 		  	let warnings = self.auditCode(dataArray);
 
 		  	//send array of warnings to renderList function to create organized JSX and update state
 		  	self.renderWarningList(warnings);
 
-		  }
+		 }
 	
 		});
 
