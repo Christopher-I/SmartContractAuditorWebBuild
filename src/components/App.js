@@ -82,8 +82,7 @@ class landingPage extends React.Component{
 		percent:'',
 		errorMessage:'',
 		successMessage:'',
-		renderedList:"",
-		numberedList:''
+		renderedList:""
 		})
 	}
 
@@ -315,9 +314,9 @@ console.log(this.state.suggestions);
 	render(){
 
 		return(
-			<div >
+			<div style={{width:'1300px', marginTop:'10px',marginLeft:'10px'}}>
 
-			<Container style={{width:'1300px', marginTop:'10px'}}>
+			
 				<Grid>
 				    <Grid.Row key ={"gridRow1"}>
 
@@ -377,7 +376,7 @@ console.log(this.state.suggestions);
 				    </Grid.Row>
 			    </Grid>
 
-		  </Container>
+	
 		<h4 style={{marginLeft:'380px',color:'gray'}}>Suggestions and Contributions are welcome ETH Address: 0x001FabDCb503f618ceE9d79D949301EEBC170647</h4>
 		  </div>
 		  )
