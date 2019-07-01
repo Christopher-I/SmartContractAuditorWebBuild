@@ -314,7 +314,7 @@ console.log(this.state.suggestions);
 	render(){
 
 		return(
-			<div style={{width:'1300px', marginTop:'10px',marginLeft:'10px'}}>
+			<Container style={{width:'1300px', marginTop:'10px'}}>
 
 			
 				<Grid>
@@ -378,7 +378,7 @@ console.log(this.state.suggestions);
 
 	
 		<h4 style={{marginLeft:'380px',color:'gray'}}>Suggestions and Contributions are welcome ETH Address: 0x001FabDCb503f618ceE9d79D949301EEBC170647</h4>
-		  </div>
+		  </Container>
 		  )
 
 	}
