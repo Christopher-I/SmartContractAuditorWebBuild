@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Form, TextArea,Input, Grid,List,Button,Modal } from 'semantic-ui-react';
+import { Container, Form, TextArea,Input, Grid,List,Button,Modal, Table } from 'semantic-ui-react';
 import Auditor from '../auditor/Auditor';
 import LandingPageSection1 from './sections/landingPageSection1';
 import LandingPageSection2 from './sections/landingPageSection2';
@@ -28,10 +28,13 @@ class landingPage extends React.Component{
 		userName:'',
 		userContactInfo:'',
 		userSuggestion:'',
-		modalOpen:false
+		modalOpen:false,
+		errorLines:'0',
+		lineNumbers:''
 	}
 
 	componentDidMount(){
+		this.generateNumberedList();
 		this.setState({
 			contractCode:sampleContract()
 		})
@@ -80,18 +83,21 @@ class landingPage extends React.Component{
 		errorMessage:'',
 		successMessage:'',
 		renderedList:"",
+		numberedList:''
 		})
 	}
 
 
 	renderWarningList=(warnings)=>{
 
-		 //update loading bar
-      	this.setState({
-		  		//percent: '75',
-		  		warningsList:warnings.length
-		  	})
-    let rndm = 0;
+
+    //create an array for all lines that have errors/warnings
+    let errorLines = [];
+	    warnings.map(warnings => {   
+	    	errorLines.push(warnings.key)     
+	        });
+   
+	let rndm = 0;
 	let list = warnings.map(warnings => {        
             return (
                 <List.Item key={rndm++}>
@@ -106,7 +112,41 @@ class landingPage extends React.Component{
 	     //update loading bar
         this.setState({
 		  		percent: '100',
-		  		renderedList:list
+		  		loading: false,
+		  		renderedList:list,
+		  		errorLines:errorLines,
+		  		warningsList:warnings.length
+		  	})
+
+        //if there are warning/errors, update numbered table to indicate their location
+        if(!!errorLines){
+        	this.generateNumberedList()
+
+        }
+        
+
+	}
+
+	//generate rendered number list on left side of contract page 1 
+	generateNumberedList=()=>{
+		let x = lineNumbers();
+
+		let list = x.map(numbers => { 
+			//check each line if contains an error
+			let errorLine = (this.state.errorLines).includes(numbers) ;  
+            return (
+            	<Table.Row key={numbers} error={errorLine}>
+				        <Table.Cell >
+				          {numbers}
+				        </Table.Cell>
+				 </Table.Row>
+            );   
+        });
+
+	     //update loading bar
+        this.setState({
+		  		numberedList :list
+
 		  	})
 
 	}
@@ -224,14 +264,12 @@ class landingPage extends React.Component{
 
 	}else{
 		this.setState({
-			errorMessage:"Please select a compiler"
+			errorMessage:"Please select a compiler",
+			loading: false
 		})
 
 	}
 
-		this.setState({
-		  		loading: false
-		  	})  
 	}
 
 	saveUserSuggestionToState=(evt)=>{
@@ -285,6 +323,8 @@ console.log(this.state.suggestions);
 
 					      <Grid.Column width={11} key ={"gridColumn1"}>
 					      <LandingPageSection1
+					      generateNumberedList = {this.generateNumberedList}
+					      numberedList = {this.state.numberedList}
 					      contractCode={this.state.contractCode}
 					      removeErrorMessage = {this.removeErrorMessage}
 					      loading = {this.state.loading}
@@ -346,3 +386,18 @@ console.log(this.state.suggestions);
 }
 
 export default landingPage;
+
+
+const lineNumbers=()=>{
+		let array=[];
+		let i;
+
+		for (i=1; i<1001; i++){
+			array.push(i);
+		//[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+	}
+
+	return array;
+
+	} 
+

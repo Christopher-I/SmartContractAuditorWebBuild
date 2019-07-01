@@ -7,8 +7,7 @@ class landingPageSection1 extends React.Component{
 constructor(props) {
     super(props);
 	this.state = {
-		contractCode:'',
-		lineNumbers:''
+		contractCode:''
 	}
 }
 
@@ -21,32 +20,6 @@ constructor(props) {
 		this.setState({
 			contract:event.target.value
 		});
-	}
-
-	componentDidMount(){
-		this.generateNumberedList();
-	}
-
-	//generate rendered number list on side of page 
-	generateNumberedList=()=>{
-		let x = lineNumbers();
-
-	let list = x.map(numbers => {        
-            return (
-            	<Table.Row key={numbers}>
-				        <Table.Cell >
-				          {numbers}
-				        </Table.Cell>
-				 </Table.Row>
-            );   
-        });
-
-	     //update loading bar
-        this.setState({
-		  		lineNumbers :list
-
-		  	})
-
 	}
 
 
@@ -70,7 +43,7 @@ constructor(props) {
 			<Grid.Column width={1}>
 				  <Table color={'grey'} celled compact basic ='very' selectable style={{marginTop:'11px'}}>
 				    <Table.Body style={{fontSize:'8px',color :'grey',textAlign:'center'}}>
-				    {this.state.lineNumbers}
+				    {this.props.numberedList}
 				      </Table.Body>
   			</Table>
 
@@ -91,21 +64,3 @@ constructor(props) {
 
 export default landingPageSection1;
 
-
-			const lineNumbers=()=>{
-				let array=[];
-				let i;
-
-				for (i=1; i<1001; i++){
-					array.push(i);
-				//[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
-			}
-
-			return array;
-
-			} 
-
-			 // <Field style ={{maxHeight:'680px',minHeight:'680px'}} control={TextArea} label='Full Description' placeholder="Paste your smart contract code here..."
-    //   value= {this.state.contract}  onChange={this.handleChangesToContract}  />
-
-    // <TextArea value= {this.state.contract} onChange={this.handleChangesToContract} style ={{maxHeight:'680px',minHeight:'680px'}} placeholder="Paste your smart contract code here..."/>
