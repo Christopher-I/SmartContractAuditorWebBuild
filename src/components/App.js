@@ -315,7 +315,7 @@ class landingPage extends React.Component {
 			<Container style={{ width: "1300px", marginTop: "10px" }}>
 				<Grid>
 					<Grid.Row key={"gridRow1"}>
-						<Grid.Column width={11} key={"gridColumn1"}>
+						<Grid.Column width={12} key={"gridColumn1"}>
 							<LandingPageSection1
 								generateNumberedList={this.generateNumberedList}
 								numberedList={this.state.numberedList}
@@ -345,7 +345,7 @@ class landingPage extends React.Component {
 							/>
 						</Grid.Column>
 
-						<Grid.Column width={1} key={"gridColumn3"}>
+						{/*<Grid.Column width={1} key={"gridColumn3"}>
 							<Modal
 								open={this.state.modalOpen}
 								onClose={this.handleClose}
@@ -433,13 +433,17 @@ class landingPage extends React.Component {
 									</Modal.Description>
 								</Modal.Content>
 							</Modal>
-						</Grid.Column>
+						</Grid.Column>*/}
 					</Grid.Row>
 				</Grid>
 
 				<h4 style={{ marginLeft: "380px", color: "gray" }}>
-					Suggestions and Contributions are welcome ETH Address:
-					0x001FabDCb503f618ceE9d79D949301EEBC170647
+					<p>
+						Suggestions and Contributions-
+						https://github.com/Christopher-I/SmartContractAuditorWebBuild
+						<br />
+						ETHAddress: 0x001FabDCb503f618ceE9d79D949301EEBC170647
+					</p>
 				</h4>
 			</Container>
 		);

@@ -35,7 +35,7 @@ class landingPageSection1 extends React.Component {
 					{" "}
 					Auditor is still in test phase and will be improved over
 					time visit
-					https://github.com/Christopher-I/SmartContractAuditor
+					https://github.com/Christopher-I/SmartContractAuditorWebBuild
 				</p>
 				<Form
 					error={!!this.props.errorMessage}
